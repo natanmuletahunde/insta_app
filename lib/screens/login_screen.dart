@@ -77,21 +77,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text('Do not have an account?  '),
                   ),
                   GestureDetector(
-                    onTap: (){
-
+                    onTap: () {
+                      // Define the action for the tap here
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      // First padding is correct
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+                      padding: const EdgeInsets.symmetric(
+                        // Second padding should use a comma, not a semicolon
+                        vertical: 8,
+                      ),
                     ),
-                    padding:const EdgeInsets.symmetric(
-                      vertical: 8;
-                    )
-                  ),
-              
+                  )
                 ],
               )
             ],
