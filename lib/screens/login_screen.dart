@@ -51,15 +51,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     true, // Since this is an email field, isPass should be false
               ),
               const SizedBox(height: 20),
-              Container(
-                child: const Text('Log in'),
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: const ShapeDecoration(
-                  color: Colors.blue, // Add background color here
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
+              InkWell(
+                child: Container(
+                  child: const Text('Log in'),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: const ShapeDecoration(
+                    color: Colors.blue, // Add background color here
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                    ),
                   ),
                 ),
               ),
@@ -74,13 +76,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: const Text('Do not have an account?  '),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  )
+                    padding:const EdgeInsets.symmetric(
+                      vertical: 8;
+                    )
+                  ),
+              
                 ],
               )
             ],
