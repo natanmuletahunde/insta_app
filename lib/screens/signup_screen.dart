@@ -27,43 +27,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView( // Added this to make the content scrollable
+        child: SingleChildScrollView(
+          // Added this to make the content scrollable
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 40), // Add spacing to move the image down
-                const CircleAvatar(
-                  radius: 50, // Adjust the radius to control the size
-                  backgroundImage: AssetImage(
-                      'assets/images/ig.png'), // Path to the image file
+                const SizedBox(
+                    height: 40), // Add spacing to move the image down
+                Stack(
+                  children: [
+                    const CircleAvatar(
+                      radius: 64, // Set the size of the CircleAvatar
+                      backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1721843458829-4773b1cc4c2f?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                      ), // Fetch image from the network
+                    ),
+                    Positioned(
+                      bottom:
+                          -10, // Position the button slightly below the CircleAvatar
+                      left: 80, // Position it to the right of the CircleAvatar
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.add_a_photo),
+                      ),
+                    ), // Positioned widget with IconButton
+                  ],
                 ),
+                // End of Stack with NetworkImage
                 const SizedBox(height: 20), // Additional spacing if needed
                 TextFieldInput(
                   hintText: 'Enter your email',
                   textInputType: TextInputType.emailAddress,
                   textEditingController: _emailController,
-                  isPass: false, // Since this is an email field, isPass should be false
+                  isPass: false,
                 ),
-
-                const SizedBox(height: 20), 
-  
+                const SizedBox(height: 20),
                 TextFieldInput(
                   hintText: 'Enter your username',
                   textInputType: TextInputType.text,
                   textEditingController: _usernameController,
-                  isPass: false, 
+                  isPass: false,
                 ),
-                const SizedBox(height: 20), 
+                const SizedBox(height: 20),
                 TextFieldInput(
                   hintText: 'Enter your password',
                   textInputType: TextInputType.text,
                   textEditingController: _passwordController,
-                  isPass: true, // Password field, so isPass should be true
+                  isPass: true, // Password field
                 ),
-                const SizedBox(height: 20), 
+                const SizedBox(height: 20),
                 TextFieldInput(
                   hintText: 'Enter your bio',
                   textInputType: TextInputType.text,
