@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
@@ -19,6 +19,10 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _bioController.dispose();
+    _usernameController.dispose();
+
+
   }
 
   Widget build(BuildContext context) {
@@ -37,11 +41,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     'assets/images/ig.png'), // Path to the image file
               ),
               const SizedBox(height: 20), // Additional spacing if needed
-
               TextFieldInput(
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _emailController,
+                isPass:
+                    false, // Since this is an email field, isPass should be false
+              ),
+             const SizedBox(height: 20), 
+               TextFieldInput(
+                hintText: 'Enter your username',
+                textInputType: TextInputType.text,
+                textEditingController: _usernameController,
                 isPass:
                     false, // Since this is an email field, isPass should be false
               ),
@@ -52,6 +63,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 textEditingController: _passwordController,
                 isPass:
                     true, // Since this is an email field, isPass should be false
+              ),
+              const SizedBox(height: 20), // Additional spacing if needed
+              TextFieldInput(
+                hintText: 'Enter your bio',
+                textInputType: TextInputType.text,
+                textEditingController: _bioController,
+                isPass:
+                    false, // Since this is an email field, isPass should be false
               ),
               const SizedBox(height: 20),
               InkWell(
