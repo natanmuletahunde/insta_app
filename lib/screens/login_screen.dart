@@ -12,11 +12,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -26,20 +27,42 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-               const SizedBox(height: 40), // Add spacing to move the image down
+              const SizedBox(height: 40), // Add spacing to move the image down
               const CircleAvatar(
                 radius: 50, // Adjust the radius to control the size
-                backgroundImage: AssetImage('assets/images/ig.png'), // Path to the image file
+                backgroundImage: AssetImage(
+                    'assets/images/ig.png'), // Path to the image file
               ),
-               const SizedBox(height: 20), // Additional spacing if needed
-               
-              TextFieldInput(
-  hintText: 'Enter your email',
-  textInputType: TextInputType.emailAddress,
-  textEditingController: _emailController,
-  isPass: false, // Since this is an email field, isPass should be false
-)
+              const SizedBox(height: 20), // Additional spacing if needed
 
+              TextFieldInput(
+                hintText: 'Enter your email',
+                textInputType: TextInputType.emailAddress,
+                textEditingController: _emailController,
+                isPass:
+                    false, // Since this is an email field, isPass should be false
+              ),
+              const SizedBox(height: 20), // Additional spacing if needed
+              TextFieldInput(
+                hintText: 'Enter your password',
+                textInputType: TextInputType.text,
+                textEditingController: _passwordController,
+                isPass:
+                    true, // Since this is an email field, isPass should be false
+              ),
+              const SizedBox(height: 20),
+              Container(
+                child: const Text('Log in'),
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: const ShapeDecoration(
+                  color: Colors.blue, // Add background color here
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
