@@ -41,9 +41,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     const CircleAvatar(
                       radius: 64, // Set the size of the CircleAvatar
-                      backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1721843458829-4773b1cc4c2f?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                      ), // Fetch image from the network
+                      backgroundImage: AssetImage(
+                        'assets/images/ig.png', // Use a local image from the assets folder
+                      ),
                     ),
                     Positioned(
                       bottom:
@@ -53,9 +53,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: () {},
                         icon: const Icon(Icons.add_a_photo),
                       ),
-                    ), // Positioned widget with IconButton
+                    ),
                   ],
                 ),
+
                 // End of Stack with NetworkImage
                 const SizedBox(height: 20), // Additional spacing if needed
                 TextFieldInput(
