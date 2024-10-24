@@ -20,11 +20,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: ' Instagram',
+      title: ' Instagram ',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
-      home: const   ResponsiveLayout(webScreenLayout: WebScreenLayout(), mobileScreenLayout:MobilScreenLayout() )
+      home: const   ResponsiveLayout(mobileScreenLayout:MobilScreenLayout(),webScreenLayout: WebScreenLayout() )
  )  ;
   }
 }
