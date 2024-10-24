@@ -10,8 +10,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-      body: Text('Form Login Screen')
+    return Scaffold(
+      body: SafeArea(child:
+      Container(
+        padding:const EdgeInsets.symmetric(horizontal: 32),
+        width: double.infinity,
+        child: const  Column(
+          crossAxisAlignment:CrossAxisAlignment.center,
+          children:[
+              
+          ],
+        ),
+      )),
     );
   }
 }
