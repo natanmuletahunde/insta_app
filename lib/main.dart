@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/responsive/responsive_layout_screen.dart';
+import 'package:instagram/utils/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: ' Instagram',
-      theme: ThemeData.dark(),
-      home: Scaffold(body: Text('Lets build Instagram'),)
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: mobileBackgroundColor,
+      ),
+      home:  ResponsiveLayout(webScreenLayout: webScreenLayout, mobileScreenLayout: mobileScreenLayout)
  )  ;
   }
 }
