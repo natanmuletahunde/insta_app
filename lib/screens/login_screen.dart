@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:instagram/utils/colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,19 +11,23 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child:
-      Container(
-        padding:const EdgeInsets.symmetric(horizontal: 32),
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment:CrossAxisAlignment.center,
-          children:[
-            // ignore: deprecated_member_use
-            SvgPicture.asset('assets/ic_instagram.svg', color: primaryColor,height: 64,) ,
-            const SizedBox()
-          ],
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          width: double.infinity,
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+               SizedBox(height: 40), // Add spacing to move the image down
+              CircleAvatar(
+                radius: 50, // Adjust the radius to control the size
+                backgroundImage: AssetImage('assets/images/ig.png'), // Path to the image file
+              ),
+               SizedBox(height: 20), // Additional spacing if needed
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
