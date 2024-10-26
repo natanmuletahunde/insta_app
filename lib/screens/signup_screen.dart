@@ -39,6 +39,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 backgroundImage: AssetImage(
                     'assets/images/ig.png'), // Path to the image file
               ),
+          Stack(
+  children: [
+    CircleAvatar(
+      radius: 64, // Set the size of the CircleAvatar
+      backgroundImage: AssetImage(
+        'assets/images/ig.png', // Use a local image from the assets folder
+      ),
+    ),
+    Positioned(
+      bottom: -10,
+      left: 80,
+      child: IconButton(
+        onPressed: () {}, 
+        icon: Icon(Icons.add_a_photo),
+      ),
+    ),
+  ],
+),
+
               const SizedBox(height: 20), // Additional spacing if needed
                 TextFieldInput(
                 hintText: 'Enter your username',
