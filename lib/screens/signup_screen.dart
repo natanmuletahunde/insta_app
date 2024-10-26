@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram/resources/auth_methods.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 40), // Add spacing to move the image down
-              
+
               // Only keep the CircleAvatar with Positioned icon
               Stack(
                 children: [
@@ -47,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     bottom: -10,
                     left: 80,
                     child: IconButton(
-                      onPressed: () {}, 
+                      onPressed: () {},
                       icon: Icon(Icons.add_a_photo),
                     ),
                   ),
@@ -59,14 +60,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 hintText: 'Enter your username',
                 textInputType: TextInputType.text,
                 textEditingController: _usernameController,
-                isPass: false, // Since this is an email field, isPass should be false
+                isPass:
+                    false, // Since this is an email field, isPass should be false
               ),
-              const SizedBox(height: 20), 
+              const SizedBox(height: 20),
               TextFieldInput(
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _emailController,
-                isPass: false, // Since this is an email field, isPass should be false
+                isPass:
+                    false, // Since this is an email field, isPass should be false
               ),
               const SizedBox(height: 20), // Additional spacing if needed
               TextFieldInput(
@@ -83,8 +86,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 textEditingController: _bioController,
                 isPass: false, // Bio field
               ),
-              const SizedBox(height: 20), 
+              const SizedBox(height: 20),
               InkWell(
+                onTap: () async {
+                  String res = await AuthMethods().signUpUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    username: _usernameController.text,
+                    bio: _bioController.text,
+                  );
+                  print(res);
+                },
                 child: Container(
                   child: const Text('Log in'),
                   width: double.infinity,
@@ -98,6 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 20),
 
               Row(

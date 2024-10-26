@@ -12,15 +12,14 @@ class AuthMethods {
     required String password,
     required String username,
     required String bio,
-    required Uint8List file,
+
   }) async {
     String res = 'Some error occurred';
     try {
       if (email.isNotEmpty &&
           password.isNotEmpty &&
           username.isNotEmpty &&
-          bio.isNotEmpty &&
-          file != null) {
+          bio.isNotEmpty ) {
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
           email: email,
           password: password,
@@ -35,6 +34,16 @@ class AuthMethods {
           'follower': [],
           'following': [],
         });
+      //  await _firestore.collection('user').add(
+      //   {
+      //      'username': username,
+      //     'uid': cred.user!.uid,
+      //     'email': email,
+      //     'bio': bio,
+      //     'follower': [],
+      //     'following': [],
+      //   }
+      //  );
         res = 'User created successfully';
       }
     } catch (err) {
