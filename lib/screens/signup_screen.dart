@@ -23,7 +23,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _usernameController.dispose();
   }
 
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -34,64 +33,57 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 40), // Add spacing to move the image down
-              const CircleAvatar(
-                radius: 50, // Adjust the radius to control the size
-                backgroundImage: AssetImage(
-                    'assets/images/ig.png'), // Path to the image file
+              
+              // Only keep the CircleAvatar with Positioned icon
+              Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 64, // Set the size of the CircleAvatar
+                    backgroundImage: AssetImage(
+                      'assets/images/ig.png', // Use a local image from the assets folder
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: () {}, 
+                      icon: Icon(Icons.add_a_photo),
+                    ),
+                  ),
+                ],
               ),
-          Stack(
-  children: [
-    CircleAvatar(
-      radius: 64, // Set the size of the CircleAvatar
-      backgroundImage: AssetImage(
-        'assets/images/ig.png', // Use a local image from the assets folder
-      ),
-    ),
-    Positioned(
-      bottom: -10,
-      left: 80,
-      child: IconButton(
-        onPressed: () {}, 
-        icon: Icon(Icons.add_a_photo),
-      ),
-    ),
-  ],
-),
 
               const SizedBox(height: 20), // Additional spacing if needed
-                TextFieldInput(
+              TextFieldInput(
                 hintText: 'Enter your username',
                 textInputType: TextInputType.text,
                 textEditingController: _usernameController,
-                isPass:
-                    false, // Since this is an email field, isPass should be false
+                isPass: false, // Since this is an email field, isPass should be false
               ),
-               const SizedBox(height: 20), 
+              const SizedBox(height: 20), 
               TextFieldInput(
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _emailController,
-                isPass:
-                    false, // Since this is an email field, isPass should be false
+                isPass: false, // Since this is an email field, isPass should be false
               ),
               const SizedBox(height: 20), // Additional spacing if needed
               TextFieldInput(
                 hintText: 'Enter your password',
                 textInputType: TextInputType.text,
                 textEditingController: _passwordController,
-                isPass:
-                    true, // Since this is an email field, isPass should be false
+                isPass: true, // Password field
               ),
 
               const SizedBox(height: 20),
-                  TextFieldInput(
-                hintText: 'Enter your password',
+              TextFieldInput(
+                hintText: 'Enter your bio',
                 textInputType: TextInputType.text,
                 textEditingController: _bioController,
-                isPass:
-                    false, // Since this is an email field, isPass should be false
+                isPass: false, // Bio field
               ),
-               const SizedBox(height: 20), 
+              const SizedBox(height: 20), 
               InkWell(
                 child: Container(
                   child: const Text('Log in'),
@@ -106,9 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -122,19 +112,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       // Define the action for the tap here
                     },
                     child: Container(
-                      // First padding is correct
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        // Second padding should use a comma, not a semicolon
-                        vertical: 8,
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
