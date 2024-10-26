@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram/resources/auth_methods.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -42,7 +43,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   const CircleAvatar(
                     radius: 64,
-                    backgroundImage: NetworkImage('https://images.unsplash.com/photo-1722929220740-f42b8c0ca019?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTl8fHxlbnwwfHx8fHw%3D'),
+                    backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1722929220740-f42b8c0ca019?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTl8fHxlbnwwfHx8fHw%3D'),
                   ),
                   Positioned(
                     bottom: -10,
@@ -84,6 +86,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 20),
               InkWell(
+                onTap: () async{ 
+                String res = await AuthMethods().signUpUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    username: _usernameController.text,
+                    bio: _bioController.text);
+                    print(res);
+                    },
                 child: Container(
                   child: const Text('Log in'),
                   width: double.infinity,
