@@ -19,6 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
+  Uint8List? _image;
 
   @override
   void dispose() {
@@ -29,9 +30,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _usernameController.dispose();
   }
 
-  void selectImage()async {
+  void selectImage() async {
     // Implement image selection logic here
-    Uint8List im =   await pickImage(ImageSource.gallery);
+    Uint8List im = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
   }
 
   @override
@@ -53,15 +57,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Stack(
                   children: [
-                    const CircleAvatar(
-                      radius: 64,
-                      backgroundImage: AssetImage('assets/images/ig.png'),
-                    ),
+                    _image != null
+                        ? CircleAvatar(
+                            radius: 64,
+                            backgroundImage: MemoryImage(
+                                _image!), // indicate that the image can not null
+                          )
+                        : const CircleAvatar(
+                            radius: 64,
+                            backgroundImage: AssetImage('assets/images/ig.png'),
+                          ),
                     Positioned(
                       bottom: -10,
                       left: 80,
                       child: IconButton(
-                        onPressed:selectImage,
+                        onPressed: selectImage,
                         icon: const Icon(Icons.add_a_photo),
                       ),
                     )
@@ -103,7 +113,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       password: _passwordController.text,
                       username: _usernameController.text,
                       bio: _bioController.text,
-                    
                     );
                     print(res);
                   },
