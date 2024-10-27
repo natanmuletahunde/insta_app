@@ -13,3 +13,7 @@ import 'package:image_picker/image_picker.dart';
     return null; // Return null if no image is selected
   }
 }
+
+showSnackBar(String content ,BuildContext context){
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(content)));
+}
