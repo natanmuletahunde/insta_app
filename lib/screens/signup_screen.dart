@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/resources/auth_methods.dart';
+import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
@@ -19,6 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   Uint8List? _image;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -39,15 +41,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void signUpUser() {
     () async {
+      setState(() {
+        _isLoading = true;
+      });
       String res = await AuthMethods().signUpUser(
           email: _emailController.text,
           password: _passwordController.text,
           username: _usernameController.text,
           bio: _bioController.text,
           file: _image!);
-        if(res != 'success'){
-
-        }
+      if (res != 'success') {
+        showSnackBar(res, context);
+      }
+      setState(() {
+        _isLoading = true;
+      });
     };
   }
 
@@ -147,10 +155,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // Define the action for the tap here
                       },
                       child: Container(
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                        child: _isLoading
+                            ? Center(
+                                child:
+                                    CircularProgressIndicator(
+                                      color: primaryColor,
+                                    ), // Fixed typo here
+                              )
+                            : Text(
+                                'Sign Up',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                         padding: const EdgeInsets.symmetric(
                           vertical: 8,
                         ),
