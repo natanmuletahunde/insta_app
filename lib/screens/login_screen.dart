@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/resources/auth_methods.dart';
-import 'package:instagram/screens/home_screen.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
@@ -31,9 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
     String res = await AuthMethods().loginUser(
         email: _emailController.text, password: _passwordController.text);
     if (res == 'success') {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
-    } else {
+    //   Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(builder: (context) =>  const HomeScreen()));
+    // } else {
       showSnackBar(res, context);
     }
     setState(() {
@@ -76,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: loginUser,
                   child: Container(
-                    child: _isLoading
+                     child: _isLoading
                         ? const Center(
                             child: CircularProgressIndicator(
                               color: primaryColor,
