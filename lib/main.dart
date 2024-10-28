@@ -1,15 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/providers/user_provider.dart'; // Import UserProvider if it's in a separate file
 import 'package:instagram/responsive/mobile_screen_layout.dart';
 import 'package:instagram/responsive/responsive_layout_screen.dart';
 import 'package:instagram/responsive/web_screen_layout.dart';
 import 'package:instagram/screens/login_screen.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:provider/provider.dart'; // Ensure provider package is imported
+
 import 'firebase_options.dart';
-import 'package:instagram/providers/user_provider.dart'; // Import UserProvider if it's in a separate file
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
