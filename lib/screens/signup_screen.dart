@@ -3,6 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/resources/auth_methods.dart';
+import 'package:instagram/responsive/mobile_screen_layout.dart';
+import 'package:instagram/responsive/responsive_layout_screen.dart';
+import 'package:instagram/responsive/web_screen_layout.dart';
 import 'package:instagram/screens/login_screen.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
@@ -33,36 +36,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void selectImage() async {
-  
     Uint8List im = await pickImage(ImageSource.gallery);
     setState(() {
       _image = im;
     });
   }
 
-void signUpUser() async {
-  setState(() {
-    _isLoading = true;
-  });
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
 
-  String res = await AuthMethods().signUpUser(
-    email: _emailController.text,
-    password: _passwordController.text,
-    username: _usernameController.text,
-    bio: _bioController.text,
-    file: _image!,
-  );
+    String res = await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      username: _usernameController.text,
+      bio: _bioController.text,
+      file: _image!,
+    );
 
-  if (res != 'success') {
-    showSnackBar(res, context);
+    if (res != 'success') {
+      showSnackBar(res, context);
+    } else {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
-  
 
-  setState(() {
-    _isLoading = false;
-  });
-}
- void navigateToLogin() {
+  void navigateToLogin() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const LoginScreen(),
@@ -75,7 +82,6 @@ void signUpUser() async {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             width: double.infinity,
@@ -84,7 +90,7 @@ void signUpUser() async {
               children: [
                 const SizedBox(height: 40),
                 const Text(
-                  'Instagram',
+                  'PIV IG',
                   style: TextStyle(fontSize: 32, fontStyle: FontStyle.italic),
                 ),
                 Stack(
@@ -92,8 +98,7 @@ void signUpUser() async {
                     _image != null
                         ? CircleAvatar(
                             radius: 64,
-                            backgroundImage: MemoryImage(
-                                _image!),
+                            backgroundImage: MemoryImage(_image!),
                           )
                         : const CircleAvatar(
                             radius: 64,
@@ -141,12 +146,12 @@ void signUpUser() async {
                 InkWell(
                   onTap: signUpUser,
                   child: Container(
-                  child:  _isLoading
+                    child: _isLoading
                         ? const Center(
-                           child:
+                            child:
                                 CircularProgressIndicator(color: primaryColor),
                           )
-                    : const Text('Sign up'),
+                        : const Text('Sign up'),
                     width: double.infinity,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(vertical: 12),
