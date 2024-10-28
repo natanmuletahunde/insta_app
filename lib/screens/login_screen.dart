@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:instagram/resources/auth_methods.dart';
+import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
   }
 
+void loginUser() async {
+  String res = await AuthMethods().loginUser(
+      email: _emailController.text, password: _passwordController.text);
+  if (res == 'success') {
+    //
+  } else {
+    showSnackBar(res, context);
+  }
+}
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -52,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               InkWell(
+                onTap: loginUser,
                 child: Container(
                   child: const Text('Log in'),
                   width: double.infinity,
