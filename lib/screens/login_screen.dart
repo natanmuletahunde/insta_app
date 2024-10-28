@@ -31,9 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
     String res = await AuthMethods().loginUser(
         email: _emailController.text, password: _passwordController.text);
     if (res == 'success') {
-    //   Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) =>  const HomeScreen()));
-    // } else {
+      //   Navigator.of(context).pushReplacement(
+      //       MaterialPageRoute(builder: (context) =>  const HomeScreen()));
+      // } else {
       showSnackBar(res, context);
     }
     setState(() {
@@ -41,8 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void navigateToSignup(){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const SignUpScreen(),),);
+  void navigateToSignup() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SignUpScreen(),
+      ),
+    );
   }
 
   @override
@@ -80,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: loginUser,
                   child: Container(
-                     child: _isLoading
+                    child: _isLoading
                         ? const Center(
                             child: CircularProgressIndicator(
                               color: primaryColor,
@@ -107,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text('Do not have an account?  '),
                     ),
                     GestureDetector(
-                      onTap:navigateToSignup,
+                      onTap: navigateToSignup,
                       child: Container(
                         child: const Text(
                           'Sign Up',

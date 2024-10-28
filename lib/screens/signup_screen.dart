@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/resources/auth_methods.dart';
+import 'package:instagram/screens/login_screen.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
@@ -55,11 +56,19 @@ void signUpUser() async {
   if (res != 'success') {
     showSnackBar(res, context);
   }
+  
 
   setState(() {
     _isLoading = false;
   });
 }
+ void navigateToLogin() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,9 +167,7 @@ void signUpUser() async {
                       child: const Text('Do not have an account?  '),
                     ),
                     GestureDetector(
-                      onTap: () {
-                      
-                      },
+                      onTap: navigateToLogin,
                       child: Container(
                         child: const Text(
                           'login',
