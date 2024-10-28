@@ -32,46 +32,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void selectImage() async {
-    // Implement image selection logic here
+  
     Uint8List im = await pickImage(ImageSource.gallery);
     setState(() {
       _image = im;
     });
   }
 
-  void signUpUser() {
-    () async {
-      setState(() {
-        _isLoading = true;
-      });
-      String res = await AuthMethods().signUpUser(
-          email: _emailController.text,
-          password: _passwordController.text,
-          username: _usernameController.text,
-          bio: _bioController.text,
-          file: _image!);
-      if (res != 'success') {
-        showSnackBar(res, context);
-      }
-      setState(() {
-        _isLoading = true;
-      });
-    };
+void signUpUser() async {
+  setState(() {
+    _isLoading = true;
+  });
+
+  String res = await AuthMethods().signUpUser(
+    email: _emailController.text,
+    password: _passwordController.text,
+    username: _usernameController.text,
+    bio: _bioController.text,
+    file: _image!,
+  );
+
+  if (res != 'success') {
+    showSnackBar(res, context);
   }
+
+  setState(() {
+    _isLoading = false;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          // Added SingleChildScrollView to make the page scrollable
+          
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 40), // Add spacing at the top
+                const SizedBox(height: 40),
                 const Text(
                   'Instagram',
                   style: TextStyle(fontSize: 32, fontStyle: FontStyle.italic),
@@ -82,7 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ? CircleAvatar(
                             radius: 64,
                             backgroundImage: MemoryImage(
-                                _image!), // indicate that the image can not null
+                                _image!),
                           )
                         : const CircleAvatar(
                             radius: 64,
@@ -130,7 +132,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 InkWell(
                   onTap: signUpUser,
                   child: Container(
-                    child: const Text('Log in'),
+                  child:  _isLoading
+                        ? const Center(
+                           child:
+                                CircularProgressIndicator(color: primaryColor),
+                          )
+                    : const Text('Sign up'),
                     width: double.infinity,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -152,20 +159,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Define the action for the tap here
+                      
                       },
                       child: Container(
-                        child: _isLoading
-                            ? Center(
-                                child:
-                                    CircularProgressIndicator(
-                                      color: primaryColor,
-                                    ), // Fixed typo here
-                              )
-                            : Text(
-                                'Sign Up',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
+                        child: const Text(
+                          'login',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         padding: const EdgeInsets.symmetric(
                           vertical: 8,
                         ),
