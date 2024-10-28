@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/resources/auth_methods.dart';
+import 'package:instagram/screens/home_screen.dart';
+import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
@@ -23,26 +25,28 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() async {
-     setState(() {
-       _isLoading = true;
-     });
+    setState(() {
+      _isLoading = true;
+    });
     String res = await AuthMethods().loginUser(
         email: _emailController.text, password: _passwordController.text);
     if (res == 'success') {
-      //
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen()));
     } else {
       showSnackBar(res, context);
-    }setState(() {
+    }
+    setState(() {
       _isLoading = false;
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView( // Wrap Column with SingleChildScrollView
+        child: SingleChildScrollView(
+          // Wrap Column with SingleChildScrollView
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             width: double.infinity,
@@ -72,7 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: loginUser,
                   child: Container(
-                    child:  _isLoading?const Center(child: CircularProgressIndicator(),): const Text('Log in'),
+                    child: _isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: primaryColor,
+                            ),
+                          )
+                        : const Text('Log in'),
                     width: double.infinity,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(vertical: 12),

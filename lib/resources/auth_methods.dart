@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram/resources/storage_methods.dart';
 
-
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -14,57 +13,63 @@ class AuthMethods {
     required String password,
     required String username,
     required String bio,
-    required Uint8List file
-  }) async{
-      String res  = 'some error ocucured ';
-      try{
-        if (email.isNotEmpty ||
-          password.isNotEmpty ||
-          username.isNotEmpty ||
-          bio.isNotEmpty
-          ); 
-       UserCredential cred =  await _auth.createUserWithEmailAndPassword(email: email, password: password);// used to create firebase auth using the email and password 
-            print(cred.user!.uid);
-      String photoUrl = await   StorageMethods().uploadImageToStorage('profilePics', file, false);
-        // create the firesore
+    required Uint8List file,
+  }) async {
+    String res = 'Some error occurred';
+    try {
+      // Check if all fields are filled
+      if (email.isNotEmpty &&
+          password.isNotEmpty &&
+          username.isNotEmpty &&
+          bio.isNotEmpty) {
+        
+        // Create Firebase Auth User
+        UserCredential cred = await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        print(cred.user!.uid);
+
+        // Upload profile image to Firebase Storage
+        String photoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePics', file, false);
+
+        // Add user data to Firestore
         await _firestore.collection('users').doc(cred.user!.uid).set({
-            'username': username,
-            'uid':cred.user!.uid,
-            'email': email,  // convert image to base64 format before storing in firebase firestore
-            'bio': bio,
-            'followers':[],
-            'following':[],
-            'photoUrl':photoUrl,
+          'username': username,
+          'uid': cred.user!.uid,
+          'email': email,
+          'bio': bio,
+          'followers': [],
+          'following': [],
+          'photoUrl': photoUrl,
         });
-        res ='success';
-      }
-      catch(err){
-    res = err.toString();
-      }
-      return res;
-  } 
 
-  //  logging in user
+        res = 'success';
+      } else {
+        res = 'Please fill in all fields';
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
 
-  Future<String>loginUser({
+  // Logging in user
+  Future<String> loginUser({
     required String email,
     required String password,
   }) async {
-    String res = ' some error occurred';
-    try{
-      if(  email.isNotEmpty || password.isNotEmpty ){
-        await _auth.signInWithEmailAndPassword(email: email, password: password);
-        res ='success';
+    String res = 'Some error occurred';
+    try {
+      if (email.isNotEmpty || password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = 'success';
+      } else {
+        res = 'Please enter all fields';
       }
-      else {
-        res ='please enter all the fields';
-      }
-    }
-    catch(err){
+    } catch (err) {
       res = err.toString();
     }
     return res;
   }
 }
-
-
