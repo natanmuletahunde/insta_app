@@ -7,9 +7,16 @@ import 'package:instagram/responsive/web_screen_layout.dart';
 import 'package:instagram/screens/login_screen.dart';
 import 'package:instagram/utils/colors.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Initialize Firebase
+
+  // Initialize Firebase using the platform-specific options
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -24,7 +31,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
-      // Set the home property to display the LoginScreen
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -41,7 +47,6 @@ class MyApp extends StatelessWidget {
             }
           }
 
-          // Show a loading spinner while waiting for authentication to complete
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(
@@ -50,7 +55,6 @@ class MyApp extends StatelessWidget {
             );
           }
 
-          // Show LoginScreen if no user is logged in
           return const LoginScreen();
         },
       ),
