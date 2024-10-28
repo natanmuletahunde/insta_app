@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,9 @@ import 'package:instagram/responsive/responsive_layout_screen.dart';
 import 'package:instagram/responsive/web_screen_layout.dart';
 import 'package:instagram/screens/login_screen.dart';
 import 'package:instagram/utils/colors.dart';
-
+import 'package:provider/provider.dart'; // Ensure provider package is imported
 import 'firebase_options.dart';
+import 'package:instagram/providers/user_provider.dart'; // Import UserProvider if it's in a separate file
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,38 +27,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Instagram',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: mobileBackgroundColor,
-      ),
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.hasData) {
-              return const ResponsiveLayout(
-                mobileScreenLayout: MobileScreenLayout(),
-                webScreenLayout: WebScreenLayout(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text('${snapshot.error}'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()), // Fixed provider setup
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Instagram',
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: mobileBackgroundColor,
+        ),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return const ResponsiveLayout(
+                  mobileScreenLayout: MobileScreenLayout(),
+                  webScreenLayout: WebScreenLayout(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error}'),
+                );
+              }
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: primaryColor,
+                ),
               );
             }
-          }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: primaryColor,
-              ),
-            );
-          }
-
-          return const LoginScreen();
-        },
+            return const LoginScreen();
+          },
+        ),
       ),
     );
   }
