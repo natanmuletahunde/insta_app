@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -17,6 +18,21 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
 Uint8List? _file;// MUST BE NULLABLES
+final  TextEditingController _descriptionController = TextEditingController();
+
+void PostImage
+(  String uid,
+   String username,
+   String profImage,){
+}async{
+  try{
+
+}catch(e)
+{
+  
+}
+}
+
   _selectImage(BuildContext context)async {
     return showDialog(context:context ,builder: (context)
     {
@@ -47,20 +63,35 @@ Uint8List? _file;// MUST BE NULLABLES
               });
             }
             
+          ),
+           SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text(' Cancel'),
+            onPressed: () async {
+              Navigator.of(context).pop();// used to delete the image in the mobiel storage
+            },
+            
           )
         ],
       );
     
     }, );
   }
+
   @override
+@override
+void dispose() {
+  super.dispose();
+  _descriptionController.dispose();
+}
+
   Widget build(BuildContext context) {
 
     final User user =  Provider.of<UserProvider>(context).getUser;
     return _file== null? Center(
       child: IconButton(
         icon: const Icon(Icons.upload),
-        onPressed: () =>_selectImage(context)
+        onPressed: () =>  _selectImage(context)
       ),
     ):
 
@@ -79,7 +110,7 @@ Uint8List? _file;// MUST BE NULLABLES
         centerTitle: false,
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed:PostImage,
             child: const Text(
               'Post',
               style: TextStyle(
@@ -102,6 +133,7 @@ Uint8List? _file;// MUST BE NULLABLES
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.45,
                 child: TextField(
+                  controller:_descriptionController ,
                   decoration: const InputDecoration(
                       hintText: ' Write a caption....',
                       border: InputBorder.none),
@@ -116,8 +148,7 @@ Uint8List? _file;// MUST BE NULLABLES
                   child: Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(
-                                'https://plus.unsplash.com/premium_photo-1670876808488-db44fb4a12d3?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                            image: MemoryImage(_file!),
                             fit: BoxFit.fill,
                             alignment: FractionalOffset.topCenter)),
                   ),
