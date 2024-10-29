@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/models/user.dart';
 import 'package:instagram/providers/user_provider.dart';
+import 'package:instagram/resources/firestore_methods.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -20,18 +21,30 @@ class _AddPostScreenState extends State<AddPostScreen> {
 Uint8List? _file;// MUST BE NULLABLES
 final  TextEditingController _descriptionController = TextEditingController();
 
-void PostImage
-(  String uid,
-   String username,
-   String profImage,){
-}async{
-  try{
+void PostImage(
+  String uid,
+  String username,
+  String profImage,
+) async { // Moved 'async' here
+  try {
+    String res = await FirestoreMethods().uploadPost(
+      _descriptionController.text, // Change _descriptionController to .text
+      _file!,
+      uid,
+      username,
+      profImage,
+    );
 
-}catch(e)
-{
-  
+    if (res == 'success') {
+      showSnackBar('posted', context);
+    } else {
+      showSnackBar(res, context);
+    }
+  } catch (e) {
+    showSnackBar(e.toString(), context);
+  }
 }
-}
+
 
   _selectImage(BuildContext context)async {
     return showDialog(context:context ,builder: (context)
