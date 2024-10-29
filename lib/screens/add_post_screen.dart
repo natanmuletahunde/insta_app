@@ -13,7 +13,7 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-
+Uint8List? _file;// MUST BE NULLABLES
   _selectImage(BuildContext context)async {
     return showDialog(context:context ,builder: (context)
     {
@@ -26,6 +26,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
             onPressed: () async {
               Navigator.of(context).pop();
               Uint8List file = await pickImage(ImageSource.camera,);
+
+              setState(() {
+              _file= file;
+              });
             }
             
           )
