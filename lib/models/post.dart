@@ -1,45 +1,51 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
-  final String email;
+class Post {
+  final String description;
   final String uid;
-  final String photoUrl;
   final String username;
-  final String bio;
-  final List followers;
-  final List following;
+  final String postId;
+  final String datePublished;
+  final List postUrl;
+  final List profImage;
+  final likes;
 
 
-  const  User ({
-    required this.email,
+  const  Post ({
+    required this.description,
     required this.uid,
-    required this.photoUrl,
     required this.username,
-    required this.bio,
-    required this.followers,
-    required this.following, 
+    required this.postId,
+    required this.datePublished,
+    required this.postUrl,
+    required this.profImage, 
+    required this.likes, 
+
   });
     Map<String ,dynamic> toJson()=>{
-      'username': username,
+      'username': description,
       'uid': uid,
-      'email': email,
-      'photoUrl': photoUrl,
-      'bio': bio,
-      'followers': followers,
-      'following': following,
+      'username': username,
+      'postId': postId,
+      'postUrl': postUrl,
+      'profImage': profImage,
+      'likes': likes,
+      'datePublished':datePublished,
     };
 
-  static User fromSnap(DocumentSnapshot snap){
+  static Post fromSnap(DocumentSnapshot snap){
     var snapshot =  snap.data() as Map<String, dynamic>;
 
-    return User(
+    return Post(
       username: snapshot['username'],
       uid: snapshot['uid'],
-      email: snapshot['email'],
-      photoUrl: snapshot['photoUrl'],
-      bio: snapshot['bio'],
-      followers: snapshot['followers'] ,
-      following: snapshot['following']  // assuming 'following' is a list of user IDs
+      datePublished: snapshot['datePublished'],
+      description: snapshot['description'],
+      profImage: snapshot['profImage'],
+      postUrl: snapshot['postUrl'] ,
+      likes: snapshot['likes'], 
+      postId:snapshot['postId'] 
+      // assuming 'following' is a list of user IDs
     );
   }
 }
