@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:instagram/utils/colors.dart';
 
 class MobileScreenLayout extends StatefulWidget {
@@ -19,25 +17,29 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         child: Text('this is mobile'),
       ),
       bottomNavigationBar: CupertinoTabBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            backgroundColor: mobileBackgroundColor,
+            icon: Icon(
+              Icons.home,
+              color: _page == 0 ? primaryColor : secondaryColor,
+            ),
             label: '',
           ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search,color: _page == 1? primaryColor : secondaryColor,),
             label: '',
           ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle,color: _page == 3 ? primaryColor : secondaryColor,),
             label: '',
           ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite,color: _page == 4 ? primaryColor : secondaryColor,),
             label: '',
           ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person,color: _page == 5 ? primaryColor : secondaryColor,),
             label: '',
           ),
         ],
@@ -46,3 +48,5 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     );
   }
 }
+
+class _page {}
