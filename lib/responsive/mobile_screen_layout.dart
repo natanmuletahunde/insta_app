@@ -25,13 +25,27 @@ void dispose(){
   void  navigationTapped(int page){
     pageController.jumpToPage(page);
     }
-
+   
+   void onPageChanged(int page){
+    setState(() {
+      _page = page;
+    });
+   }
 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('this is mobile'),
+      body:PageView(
+        children: [
+       Text('feed'),
+       Text('search'),
+       Text('add_post'),
+       Text('notitf'),
+       Text('profile')
+        ],
+        physics:  const NeverScrollableScrollPhysics(),
+        controller: pageController,
+        onPageChanged: onPageChanged,
       ),
       bottomNavigationBar: CupertinoTabBar(
         items: [
