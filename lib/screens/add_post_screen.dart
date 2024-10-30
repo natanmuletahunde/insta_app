@@ -133,7 +133,7 @@ void dispose() {
           padding:
               const EdgeInsets.only(left: 8.0), // Adjust this value as needed
           child: IconButton(
-            onPressed: () {},
+            onPressed:clearImage,
             icon: const Icon(Icons.arrow_back),
           ),
         ),
