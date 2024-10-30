@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:intl/intl.dart';
 
-
 class PostCard extends StatelessWidget {
-     final snap;
-  const PostCard({super.key,  required this.snap,});
+  final snap;
+  const PostCard({
+    super.key,
+    required this.snap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,7 @@ class PostCard extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.35,
             width: double.infinity,
             child: Image.network(
-                  snap['postUrl'],
+              snap['postUrl'],
               fit: BoxFit.cover,
             ),
           ),
@@ -130,7 +132,7 @@ class PostCard extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                       ),
                   child: Text(
-                   '${snap['likes'].length} likes',
+                    '${snap['likes'].length} likes',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -139,7 +141,7 @@ class PostCard extends StatelessWidget {
                   padding: const EdgeInsets.only(
                     top: 8,
                   ),
-                   child: RichText(
+                  child: RichText(
                     text: TextSpan(
                       style: const TextStyle(color: primaryColor),
                       children: [
@@ -148,31 +150,31 @@ class PostCard extends StatelessWidget {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
-                          text:  '${snap['description']}',
+                          text: '${snap['description']}',
                         ),
                       ],
                     ),
                   ),
                 ),
-                 InkWell(
-                  onTap: (){}, // when the user touch it directed to the comments Screen
-                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 4
-                    ),
-                    child: Text('View all 200 comments',
-                    style: const TextStyle(fontSize: 16, color: secondaryColor),),
-                   ), 
-                 ),
-                 Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 4
-                    ),
+                InkWell(
+                  onTap:
+                      () {}, // when the user touch it directed to the comments Screen
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
-                      DateFormat.yMMMd().format(snap['datepublished'],),
-                    
-                    style: const TextStyle(fontSize: 16, color: secondaryColor),),
-                   ),
+                      'View all 200 comments',
+                      style:
+                          const TextStyle(fontSize: 16, color: secondaryColor),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                    DateFormat.yMMMd().format(snap['datePublished'].toDate()),
+                    style: const TextStyle(fontSize: 16, color: secondaryColor),
+                  ),
+                ),
               ],
             ),
           ),
