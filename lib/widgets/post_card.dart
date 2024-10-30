@@ -110,46 +110,65 @@ class PostCard extends StatelessWidget {
                   ),
                 ),
               ),
-              // Description and number of comments
-
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DefaultTextStyle(
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              fontWeight: FontWeight.w800,
-                            ),
-                        child: Text('1,231 likes',
-                            style: Theme.of(context).textTheme.bodyMedium)),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(
-                        top: 8,
-                      ),
-                      child: RichText(text: 
-                      TextSpan(
-                        style: const TextStyle(color: primaryColor),
-                        children: [
-                              TextSpan(
-                                text: 'username',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold
-                                )
-                              ),
-                              TextSpan(
-                                text: 'hey this is some description to be replaced'
-                              )
-                        ]
-                      )),
-                    ) 
-                  ],
-                ),
-              )
             ],
-          )
+          ),
+
+          // Description and number of comments
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DefaultTextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                  child: Text(
+                    '1,231 likes',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                  ),
+                   child: RichText(
+                    text: TextSpan(
+                      style: const TextStyle(color: primaryColor),
+                      children: [
+                        TextSpan(
+                          text: 'username',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: ' hey this is some description to be replaced',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                 InkWell(
+                  onTap: (){}, // when the user touch it directed to the comments Screen
+                   child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4
+                    ),
+                    child: Text('View all 200 comments',
+                    style: const TextStyle(fontSize: 16, color: secondaryColor),),
+                   ), 
+                 ),
+                 Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4
+                    ),
+                    child: Text('22/12/2021',
+                    style: const TextStyle(fontSize: 16, color: secondaryColor),),
+                   ),
+              ],
+            ),
+          ),
         ],
       ),
     );
