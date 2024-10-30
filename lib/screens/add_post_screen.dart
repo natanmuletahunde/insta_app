@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -123,7 +122,9 @@ void dispose() {
         centerTitle: false,
         actions: [
           TextButton(
-            onPressed:PostImage,
+            onPressed:()=>PostImage(
+               user.uid,user.username,user.photoUrl  
+            ),
             child: const Text(
               'Post',
               style: TextStyle(
