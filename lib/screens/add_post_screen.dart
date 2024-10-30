@@ -44,6 +44,7 @@ void PostImage(
     _isLoading = false;
   });
       showSnackBar('posted', context);
+      clearImage();
     } else {
             setState(() {
     _isLoading = false;
@@ -101,6 +102,13 @@ void PostImage(
     }, );
   }
 
+
+  void clearImage(){
+    setState(() {
+      _file = null;
+    });
+  }
+
   @override
 @override
 void dispose() {
@@ -148,7 +156,9 @@ void dispose() {
       ),
       body: Column(
         children: [
-       _isLoading? const LinearProgressIndicator():Container(),
+       _isLoading? const LinearProgressIndicator(): 
+       Padding(padding: EdgeInsets.only(top: 0),),
+       const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
