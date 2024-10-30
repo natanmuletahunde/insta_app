@@ -117,8 +117,10 @@ class PostCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                 Text('1,231 likes', style: Theme.of(context).textTheme.bodyMedium)
-
+                 DefaultTextStyle(
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(fontWeight:FontWeight.w800),
+                  
+                  child: Text('1,231 likes', style: Theme.of(context).textTheme.bodyMedium))
                     ],
                   ),
                 )
