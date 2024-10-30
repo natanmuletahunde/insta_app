@@ -86,26 +86,41 @@ class PostCard extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.favorite,
+                  Icons.favorite,// like button 
                   color: Colors.red,
                 ),
               ),
             IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.comment_outlined,
+                    Icons.comment_outlined, 
                   )),
             IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.send,
+                    Icons.send, // the send button 
                   )),
                 Expanded(
                 child: Align(
                   alignment: Alignment.bottomRight,
-                  child: IconButton(onPressed: (){}, icon: const Icon(Icons.bookmark_border),
+                  child: IconButton(onPressed: (){}, icon: const Icon(Icons.bookmark_border),// the saved file button 
                   ),
                 ) ,
+                ),
+                // Description and number of comments
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                 Text('1,231 likes', style: Theme.of(context).textTheme.bodyMedium)
+
+                    ],
+                  ),
                 )
             ],
           )
@@ -114,3 +129,4 @@ class PostCard extends StatelessWidget {
     );
   }
 }
+
