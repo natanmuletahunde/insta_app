@@ -90,16 +90,23 @@ class PostCard extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
-              IconButton(
+            IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.comment_outlined,
                   )),
-              IconButton(
+            IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.send,
                   )),
+                Expanded(
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: IconButton(onPressed: (){}, icon: const Icon(Icons.bookmark_border),
+                  ),
+                ) ,
+                )
             ],
           )
         ],
