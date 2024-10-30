@@ -86,44 +86,68 @@ class PostCard extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.favorite,// like button 
+                  Icons.favorite, // like button
                   color: Colors.red,
                 ),
               ),
-            IconButton(
+              IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.comment_outlined, 
+                    Icons.comment_outlined,
                   )),
-            IconButton(
+              IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.send, // the send button 
+                    Icons.send, // the send button
                   )),
-                Expanded(
+              Expanded(
                 child: Align(
                   alignment: Alignment.bottomRight,
-                  child: IconButton(onPressed: (){}, icon: const Icon(Icons.bookmark_border),// the saved file button 
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                        Icons.bookmark_border), // the saved file button
                   ),
-                ) ,
                 ),
-                // Description and number of comments
+              ),
+              // Description and number of comments
 
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                 DefaultTextStyle(
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(fontWeight:FontWeight.w800),
-                  
-                  child: Text('1,231 likes', style: Theme.of(context).textTheme.bodyMedium))
-                    ],
-                  ),
-                )
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DefaultTextStyle(
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                        child: Text('1,231 likes',
+                            style: Theme.of(context).textTheme.bodyMedium)),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(
+                        top: 8,
+                      ),
+                      child: RichText(text: 
+                      TextSpan(
+                        style: const TextStyle(color: primaryColor),
+                        children: [
+                              TextSpan(
+                                text: 'username',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold
+                                )
+                              ),
+                              TextSpan(
+                                text: 'hey this is some description to be replaced'
+                              )
+                        ]
+                      )),
+                    ) 
+                  ],
+                ),
+              )
             ],
           )
         ],
@@ -131,4 +155,3 @@ class PostCard extends StatelessWidget {
     );
   }
 }
-
