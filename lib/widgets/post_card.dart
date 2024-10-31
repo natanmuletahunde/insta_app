@@ -18,6 +18,7 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+    bool isLikeAnimating = false;
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
@@ -88,25 +89,29 @@ class _PostCardState extends State<PostCard> {
             ),
           ),
           // Image section
-          Stack(
-            children: [
-                SizedBox(
-              height: MediaQuery.of(context).size.height * 0.35,
-              width: double.infinity,
-              child: Image.network(
-                widget.snap['postUrl'],
-                fit: BoxFit.cover,
+          GestureDetector(
+            child: Stack(
+              children: [
+                  SizedBox(
+                height: MediaQuery.of(context).size.height * 0.35,
+                width: double.infinity,
+                child: Image.network(
+                  widget.snap['postUrl'],
+                  fit: BoxFit.cover,
+                ),
               ),
+                LikeAnimation(child: const Icon(Icons.favorite, color: Colors.white , size: 100,), isAnimating: isLikeAnimating,
+                duration: const Duration(
+                  milliseconds: 400,
+                ),
+                onEnd: (){
+                    setState(() {
+                      isLikeAnimating= true;
+                    }); 
+                },
+                )
+              ]
             ),
-              LikeAnimation(child: const Icon(Icons.favorite, color: Colors.white , size: 100,), isAnimating: isLikeAnimating,
-              duration: const Duration(
-                milliseconds: 400,
-              ),
-              onEnd: (){
-                
-              },
-              )
-            ]
           ),
 
           // Like Comment Section
