@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class LikeAnimation extends StatefulWidget {
@@ -33,8 +35,29 @@ class _LikeAnimationState extends State<LikeAnimation> with SingleTickerProvider
     );
     scale = Tween<double>(begin:1, end: 1.2).animate(controller);
   }
-
   @override
+
+ void didUpdateWidget (covariant LikeAnimation oldWidget) {
+   super.didUpdateWidget(oldWidget);
+   if(widget.isAnimating!= oldWidget.isAnimating){
+         startAnimation();
+   }
+   
+ }
+ startAnimation() async{
+   if(widget.isAnimating|| widget.smallLike){
+    await controller.forward();
+    await controller.reverse();
+
+    await Future.delayed(const  Duration(milliseconds: 200,),);
+
+
+   if(widget.onEnd!=null){
+    widget.onEnd!();
+   }
+
+   }
+ }
   Widget build(BuildContext context) {
     return Container(); 
   }
