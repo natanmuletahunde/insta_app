@@ -7,8 +7,8 @@ import 'package:instagram/widgets/comment_card.dart';
 import 'package:provider/provider.dart';
 
 class CommentsScreen extends StatefulWidget {
-  final  snap;
-  const CommentsScreen({super.key , required this.snap});
+  final snap;
+  const CommentsScreen({super.key, required this.snap});
 
   @override
   State<CommentsScreen> createState() => _CommentsScreenState();
@@ -36,42 +36,46 @@ class _CommentsScreenState extends State<CommentsScreen> {
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                 user.photoUrl, 
+                user.photoUrl,
               ),
               radius: 18,
             ),
             Expanded(
-              child: Padding(padding: const EdgeInsets.only(left: 16),
-                 child: Column(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RichText(text: TextSpan(
-                      children: [
-                        TextSpan(
+                    RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
                           text: 'username',
-                          style: const TextStyle(fontWeight: FontWeight.bold)
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(
+                        text: 'some description to insert',
+                      )
+                    ])),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        '23/12/21',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                         ),
-                         TextSpan(
-                          text: 'some description to insert',
-                          
-                        )
-                      ]
+                      ),
                     )
-                    ),
-                    Padding(padding:  const EdgeInsets.only(top: 4),
-                    child:Text('23/12/21',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),),)
                   ],
-                 ),
+                ),
               ),
             ),
-            Container (
+            Container(
               padding: const EdgeInsets.all(8),
-              child: const Icon(Icons.favorite,size: 16,),
+              child: const Icon(
+                Icons.favorite,
+                size: 16,
+              ),
             ),
             Expanded(
               child: Padding(
@@ -83,15 +87,16 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   ),
                 ),
               ),
-              
             ),
             InkWell(
               onTap: () async {
-                 FirestoreMethods.postComment( widget.snap['posts'],
-                 widget.snap['text'],
-                 user.uid,
-                 user.username,
-                 user.photoUrl),
+                await FirestoreMethods().postComment(
+                  widget.snap['posts'],
+                  widget.snap['text'],
+                  user.uid,
+                  user.username,
+                  user.photoUrl,
+                );
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),

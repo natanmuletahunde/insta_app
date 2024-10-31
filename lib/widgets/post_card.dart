@@ -164,9 +164,13 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               IconButton(
-                onPressed: ()=>Navigator.of(context).push(  // we use the navigator for the case of redirect one page to another   push a page in the current page 
-                  MaterialPageRoute(builder: (context)=> const  CommentsScreen())
-                ) ,
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommentsScreen(
+                      snap: widget.snap['postId'].toString(),
+                    ),
+                  ),
+                ),
                 icon: const Icon(
                   Icons.send,
                 ),
@@ -244,5 +248,5 @@ class _PostCardState extends State<PostCard> {
         ],
       ),
     );
-  }
+  } 
 }
