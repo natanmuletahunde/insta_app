@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LikeAnimation extends StatefulWidget {
   final Widget child;
@@ -58,7 +60,15 @@ class _LikeAnimationState extends State<LikeAnimation> with SingleTickerProvider
 
    }
  }
+ @override
+void dispose(){
+  super.dispose();
+  controller.dispose();
+}
+ 
   Widget build(BuildContext context) {
-    return Container(); 
+    return  ScaleTransition(scale: 
+    scale,
+    child: widget.child,);
   }
 }
