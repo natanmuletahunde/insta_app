@@ -19,6 +19,36 @@ class _CommentsScreenState extends State<CommentsScreen> {
         title: const Text('Comments'),
         centerTitle: false,
       ),
+
+    bottomNavigationBar: SafeArea(child: Container(
+      height: kToolbarHeight,
+      margin:EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      padding: const EdgeInsets.only(left: 16, right: 8),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(''),
+            radius: 18,
+
+          ),
+          Expanded(child: 
+          Padding(padding: EdgeInsets.only(left: 16, right: 8.0),
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: 'Comments as username',
+              border: InputBorder.none,
+            ),
+          ),
+          ),
+          ),
+            InkWell(
+              onTap: (){},
+            )
+        ],
+      ),
+    )),  
     );
   }
 }
