@@ -40,6 +40,11 @@ class FirestoreMethods {
     try{
           if(likes.contains(uid)){
            await _firestore.collection('posts').doc(postId).update({
+              'likes':FieldValue.arrayRemove([uid]),
+            });
+          } 
+          else {
+               await _firestore.collection('posts').doc(postId).update({
               'likes':FieldValue.arrayUnion([uid]),
             });
           }
