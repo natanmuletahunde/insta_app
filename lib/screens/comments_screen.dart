@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+// import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:instagram/models/user.dart';
 import 'package:instagram/providers/user_provider.dart';
@@ -29,7 +28,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: const Text('Comments'),
+        title: const Text('comments'),
         centerTitle: false,
       ),
       body: CommentCard(),
@@ -100,7 +99,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
             InkWell(
               onTap: () async {
                 await FirestoreMethods().postComment(
-                  widget.snap['posts'],
+                  widget.snap['postId'],
                   _commentController.text,
                   user.uid,
                   user.username,

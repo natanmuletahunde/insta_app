@@ -58,12 +58,16 @@ class FirestoreMethods {
     if(text.isNotEmpty){
       String commentId = const Uuid().v1();
         await  _firestore.collection('posts').doc(postId).collection('comments').doc(commentId).set({
+      
+        'profilePic': profilePic,
+        'name': name,
+        'uid': uid,
         'commentId': commentId,
         'text': text,
-        'uid': uid,
-        'name': name,
-        'profilePic': profilePic,
         'datePublished':DateTime.now()
+
+
+
       });
     }
     else{
