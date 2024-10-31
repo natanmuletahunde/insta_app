@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:instagram/models/user.dart';
+import 'package:instagram/providers/user_provider.dart';
+import 'package:instagram/resources/firestore_methods.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/widgets/comment_card.dart';
+import 'package:provider/provider.dart';
 
 class CommentsScreen extends StatefulWidget {
-  const CommentsScreen({super.key});
+  final  snap;
+  const CommentsScreen({super.key , required this.snap});
 
   @override
   State<CommentsScreen> createState() => _CommentsScreenState();
@@ -12,6 +17,7 @@ class CommentsScreen extends StatefulWidget {
 class _CommentsScreenState extends State<CommentsScreen> {
   @override
   Widget build(BuildContext context) {
+    final User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
@@ -30,35 +36,38 @@ class _CommentsScreenState extends State<CommentsScreen> {
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://images.unsplash.com/photo-1730051316601-4c71c894e496?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbWV0fGVufDB8fDB8fHww'),
+                 user.photoUrl, 
+              ),
               radius: 18,
             ),
-            Padding(padding: const EdgeInsets.only(left: 16),
-               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RichText(text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'username',
-                        style: const TextStyle(fontWeight: FontWeight.bold)
-                      ),
-                       TextSpan(
-                        text: 'some description to insert',
-                        
-                      )
-                    ]
-                  )
-                  ),
-                  Padding(padding:  const EdgeInsets.only(top: 4),
-                  child:Text('23/12/21',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),),)
-                ],
-               ),
+            Expanded(
+              child: Padding(padding: const EdgeInsets.only(left: 16),
+                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RichText(text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'username',
+                          style: const TextStyle(fontWeight: FontWeight.bold)
+                        ),
+                         TextSpan(
+                          text: 'some description to insert',
+                          
+                        )
+                      ]
+                    )
+                    ),
+                    Padding(padding:  const EdgeInsets.only(top: 4),
+                    child:Text('23/12/21',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),),)
+                  ],
+                 ),
+              ),
             ),
             Container (
               padding: const EdgeInsets.all(8),
@@ -69,7 +78,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 padding: EdgeInsets.only(left: 16, right: 8.0),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Comments as username',
+                    hintText: 'Comments as ${user.username}',
                     border: InputBorder.none,
                   ),
                 ),
@@ -77,7 +86,13 @@ class _CommentsScreenState extends State<CommentsScreen> {
               
             ),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                 FirestoreMethods.postComment( widget.snap['posts'],
+                 widget.snap['text'],
+                 user.uid,
+                 user.username,
+                 user.photoUrl),
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 child: const Text(
