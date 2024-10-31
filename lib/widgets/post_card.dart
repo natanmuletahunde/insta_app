@@ -18,7 +18,7 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-    bool isLikeAnimating = false;
+  bool isLikeAnimating = false;
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
@@ -90,9 +90,13 @@ class _PostCardState extends State<PostCard> {
           ),
           // Image section
           GestureDetector(
-            child: Stack(
-              children: [
-                  SizedBox(
+            onDoubleTap: () {
+              setState(() {
+                isLikeAnimating = true;
+              });
+            },
+            child: Stack(alignment: Alignment.center, children: [
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.35,
                 width: double.infinity,
                 child: Image.network(
@@ -100,26 +104,35 @@ class _PostCardState extends State<PostCard> {
                   fit: BoxFit.cover,
                 ),
               ),
-                LikeAnimation(child: const Icon(Icons.favorite, color: Colors.white , size: 100,), isAnimating: isLikeAnimating,
-                duration: const Duration(
-                  milliseconds: 400,
-                ),
-                onEnd: (){
+              AnimatedOpacity(
+               duration: const Duration(milliseconds: 200),
+               opacity: isLikeAnimating?1:0,
+                child: LikeAnimation(
+                  child: const Icon(
+                    Icons.favorite,
+                    color: Colors.white,
+                    size: 120,
+                  ),
+                  isAnimating: isLikeAnimating,
+                  duration: const Duration(
+                    milliseconds: 400,
+                  ),
+                  onEnd: () {
                     setState(() {
-                      isLikeAnimating= true;
-                    }); 
-                },
-                )
-              ]
-            ),
+                      isLikeAnimating = false;
+                    });
+                  },
+                ),
+              )
+            ]),
           ),
 
           // Like Comment Section
           Row(
             children: [
               LikeAnimation(
-                isAnimating:widget.snap['likes'].contains(user.uid),
-               smallLike: true,
+                isAnimating: widget.snap['likes'].contains(user.uid),
+                smallLike: true,
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(
@@ -202,7 +215,8 @@ class _PostCardState extends State<PostCard> {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
-                    DateFormat.yMMMd().format(widget.snap['datePublished'].toDate()),
+                    DateFormat.yMMMd()
+                        .format(widget.snap['datePublished'].toDate()),
                     style: const TextStyle(fontSize: 16, color: secondaryColor),
                   ),
                 ),
