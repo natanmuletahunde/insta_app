@@ -20,6 +20,7 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool isLikeAnimating = false;
+
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
@@ -79,7 +80,7 @@ class _PostCardState extends State<PostCard> {
                                   ),
                                 ),
                               )
-                              .toList(), // Added parentheses here
+                              .toList(),
                         ),
                       ),
                     );
@@ -91,13 +92,12 @@ class _PostCardState extends State<PostCard> {
           ),
           // Image section
           GestureDetector(
-           
             onDoubleTap: () async {
-               await FirestoreMethods().likePost(
-              widget.snap['postId'],
-              user.uid,
-              widget.snap['likes']
-            );
+              await FirestoreMethods().likePost(
+                widget.snap['postId'],
+                user.uid,
+                widget.snap['likes'],
+              );
               setState(() {
                 isLikeAnimating = true;
               });
@@ -112,8 +112,8 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               AnimatedOpacity(
-               duration: const Duration(milliseconds: 200),
-               opacity: isLikeAnimating?1:0,
+                duration: const Duration(milliseconds: 200),
+                opacity: isLikeAnimating ? 1 : 0,
                 child: LikeAnimation(
                   child: const Icon(
                     Icons.favorite,
@@ -141,39 +141,39 @@ class _PostCardState extends State<PostCard> {
                 isAnimating: widget.snap['likes'].contains(user.uid),
                 smallLike: true,
                 child: IconButton(
-                  onPressed: ()  async{
-              await FirestoreMethods().likePost(
-              widget.snap['postId'],
-              user.uid,
-              widget.snap['likes']
-            );
+                  onPressed: () async {
+                    await FirestoreMethods().likePost(
+                      widget.snap['postId'],
+                      user.uid,
+                      widget.snap['likes'],
+                    );
                   },
-                  icon: const Icon(
-                    Icons.favorite, // like button
-                    color: Colors.red,
-                  )
-                  : const Icon(Icons.favorite_border),
-
-                  
+                  icon: widget.snap['likes'].contains(user.uid)
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : const Icon(Icons.favorite_border),
                 ),
               ),
               IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.comment_outlined,
-                  )),
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.comment_outlined,
+                ),
+              ),
               IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.send, // the send button
-                  )),
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.send,
+                ),
+              ),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: IconButton(
                     onPressed: () {},
-                    icon: const Icon(
-                        Icons.bookmark_border), // the saved file button
+                    icon: const Icon(Icons.bookmark_border),
                   ),
                 ),
               ),
@@ -217,8 +217,7 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 InkWell(
-                  onTap:
-                      () {}, // when the user touch it directed to the comments Screen
+                  onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
