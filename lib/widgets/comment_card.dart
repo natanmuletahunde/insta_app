@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CommentCard extends StatefulWidget {
   final snap;
@@ -52,7 +53,9 @@ class _CommentCardState extends State<CommentCard> {
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Text(
-                      '23/12/21',
+                     DateFormat.yMMM().format(
+                      widget.snap['datePublished'].toDate()
+                     ),
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
