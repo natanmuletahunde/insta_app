@@ -65,9 +65,6 @@ class FirestoreMethods {
         'commentId': commentId,
         'text': text,
         'datePublished':DateTime.now()
-
-
-
       });
     }
     else{
@@ -80,4 +77,13 @@ class FirestoreMethods {
     );
       }
   }
+
+ Future<void> deletePost(String postId) async {
+  try{
+  await  _firestore.collection('posts').doc(postId).delete();
+  }  
+  catch(e){
+      print(e.toString());
+  }
+ }
 }
