@@ -32,15 +32,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       radius: 80,
                     ),
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          buildStateColumn(20, 'posts'),
+                          buildStateColumn(150, 'followers'),
+                          buildStateColumn(10, 'following'),
+                        ],
+                      ),
+                    ),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        buildStateColumn(20, 'posts'),
-                        buildStateColumn(150, 'followers'),
-                        buildStateColumn(10, 'following'),
+                        FollowButton(
+                          
+                        )
                       ],
-                    ),
+                    )
                   ],
                 ),
               ],
@@ -58,11 +69,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Text(
           num.toString(),
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey),
+        Container(
+          margin: const EdgeInsets.only(top: 4),
+          child: Text(
+            label,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey),
+          ),
         ),
       ],
     );
