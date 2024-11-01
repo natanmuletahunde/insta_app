@@ -23,43 +23,45 @@ class _CommentCardState extends State<CommentCard> {
             ),
             radius: 18,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'username ',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white, // Set text color to white
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'username ',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white, // Set text color to white
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: 'some description to insert',
-                        style: const TextStyle(
-                          color: Colors.white, // Set text color to white
+                        TextSpan(
+                          text: 'some description to insert',
+                          style: const TextStyle(
+                            color: Colors.white, // Set text color to white
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: Text(
-                    '23/12/21',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white, // Set text color to white
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(
+                      '23/12/21',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // Set text color to white
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
