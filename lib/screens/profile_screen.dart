@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
@@ -15,32 +15,38 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   var userData = {};
+  int postLen = 0;
+  int followers = 0;
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getData();
   }
 
-  getData() async{
-      try{
-      var  snap =  await FirebaseFirestore.instance.collection('users').doc(widget.uid).get();
-      userData = snap.data()!;
-      setState(() {
-        
-      });
-      }
-      catch(e){
-        showSnackBar(context, e.toString(),);
-      }
-  }
+  getData() async {
+    try {
+      var userSnap = await FirebaseFirestore.instance.collection('users').doc(widget.uid).get();
 
+      // get post link
+       var postSnap = await FirebaseFirestore.instance.collection('posts').where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
+       postLen = postSnap.docs.length;;
+       userData = userSnap.data()!;
+       followers = userSnap.data()!['followers'].length;
+      setState(() {
+        userData = userSnap.data()!;
+      });
+    } catch (e) {
+      showSnackBar(context as String, e.toString() as BuildContext);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: Text(username['username']),
+        title: Text(userData['username']), // Use userData here
         centerTitle: false,
       ),
       body: ListView(
@@ -51,10 +57,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(
+                     CircleAvatar(
                       backgroundColor: Colors.grey,
                       backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1496559249665-c7e2874707ea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MnxFMnBTVWs3VVZsWXx8ZW58MHx8fHx8'),
+                        userData['photoUrl']
+                      ),
                       radius: 80,
                     ),
                     Expanded(
@@ -65,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              buildStateColumn(20, 'posts'),
+                              buildStateColumn(postLen, 'posts'),
                               buildStateColumn(150, 'followers'),
                               buildStateColumn(10, 'following'),
                             ],
@@ -91,23 +98,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(top: 15),
                   child: Text(
-                    'username',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    userData['username'], // Display user's username here
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                      top: 1
-                    ),
-                    child: Text('some description'
-                    ),
-                    ),
-                   
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(top: 1),
+                  child: Text(
+                    userData['bio'], // Display user's bio here
+                  ),
+                ),
               ],
             ),
           ),
-
         ],
       ),
     );
