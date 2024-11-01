@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:instagram/models/user.dart';
 import 'package:instagram/providers/user_provider.dart';
@@ -15,7 +17,13 @@ class CommentsScreen extends StatefulWidget {
 }
 
 class _CommentsScreenState extends State<CommentsScreen> {
+  final TextEditingController _commentController =  TextEditingController();
   @override
+
+  void dispose(){
+    super.dispose();
+    _commentController.dispose();
+  }
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
@@ -42,6 +50,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 16, right: 8),
                 child: TextField(
+                  controller: _commentController,
                   decoration: InputDecoration(
                     hintText: 'Comments as ${user.username}',
                     border: InputBorder.none,
@@ -53,7 +62,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
               onTap: () async{
                await  FirestoreMethods().postComment(
                 widget.snap['postId'],
-                widget.snap['text'],
+                _commentController.text,
                 user.uid,
                 user.username,
                 user.photoUrl,
