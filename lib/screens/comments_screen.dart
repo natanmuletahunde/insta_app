@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,9 @@ class _CommentsScreenState extends State<CommentsScreen> {
           }
           return ListView.builder(
             itemCount: (snapshot.data! as dynamic).docs.length,
-            itemBuilder: (context, index) => CommentCard(),
+            itemBuilder: (context, index) => CommentCard(
+               snap:(snapshot.data! as dynamic).docs[index].data()
+            ),
           );
         },
       ),
@@ -87,6 +89,9 @@ class _CommentsScreenState extends State<CommentsScreen> {
                     user.username,
                     user.photoUrl,
                   );
+                setState(() {
+                  _commentController.text ='';
+                });
                   _commentController.clear();
                 },
                 child: Container(

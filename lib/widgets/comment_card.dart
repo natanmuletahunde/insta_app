@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CommentCard extends StatefulWidget {
-  const CommentCard({super.key});
+  final snap;
+  const CommentCard({super.key ,required this.snap});
 
   @override
   State<CommentCard> createState() => _CommentCardState();
 }
-
 class _CommentCardState extends State<CommentCard> {
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class _CommentCardState extends State<CommentCard> {
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(
-              'https://images.unsplash.com/photo-1730051316601-4c71c894e496?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbWV0fGVufDB8fDB8fHww',
+              widget.snap['profilePic']
             ),
             radius: 18,
           ),
@@ -34,14 +34,14 @@ class _CommentCardState extends State<CommentCard> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'username ',
+                          text: widget.snap['name'] ,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white, // Set text color to white
                           ),
                         ),
                         TextSpan(
-                          text: 'some description to insert',
+                          text: '${widget.snap['text']} ' ,
                           style: const TextStyle(
                             color: Colors.white, // Set text color to white
                           ),
