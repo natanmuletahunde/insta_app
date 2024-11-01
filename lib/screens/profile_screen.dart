@@ -12,12 +12,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       
-       appBar: AppBar(
-        backgroundColor:mobileBackgroundColor,
-        title:Text('username'),
+      appBar: AppBar(
+        backgroundColor: mobileBackgroundColor,
+        title: Text('username'),
         centerTitle: false,
-       ),
+      ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1496559249665-c7e2874707ea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MnxFMnBTVWs3VVZsWXx8ZW58MHx8fHx8'
+                      ),
+                      radius: 80,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        buildStateColumn(20, 'posts'),
+                        buildStateColumn(150, 'followers'),
+                        buildStateColumn(10, 'following'),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Column buildStateColumn(int num, String label) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          num.toString(),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey),
+        ),
+      ],
     );
   }
 }
