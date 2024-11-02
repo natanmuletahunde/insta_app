@@ -86,4 +86,23 @@ class FirestoreMethods {
       print(e.toString());
   }
  }
+ Future<void>followUser (String
+  uid , 
+  String followId
+ )
+ async{
+  try{
+   DocumentSnapshot snap = await _firestore.collection('user').doc(uid).get();
+   List following = (snap.data()! as dynamic)['following'];
+   
+   if(following.contains(followId)){
+    await _firestore.collection('user').doc(uid).update(uid){
+
+    }
+   }
+  }
+  catch(e){
+    print(e.toString())
+;  }
+ }
 }
