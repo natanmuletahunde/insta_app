@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/utils/colors.dart';
+import 'package:instagram/utils/global_variables.dart';
 import 'package:instagram/widgets/post_card.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -8,9 +9,11 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
+   backgroundColor:  width > webScreenSize ? webBackgroundColor:   mobileBackgroundColor,
+      appBar:width > webScreenSize? null :
+      AppBar(
         centerTitle: false,
         title: const Text(
           'Instagram',
@@ -37,8 +40,15 @@ class FeedScreen extends StatelessWidget {
           }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) => PostCard(
-                 snap:snapshot.data!.docs[index].data(),
+            itemBuilder: (context, index) => Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: width > webScreenSize? width*0.3:0,
+                vertical: width > webScreenSize? 15:0, 
+
+              ),
+              child: PostCard(
+                   snap:snapshot.data!.docs[index].data(),
+              ),
             ),
           );
         },

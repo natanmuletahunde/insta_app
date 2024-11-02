@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/global_variables.dart';
@@ -83,6 +81,7 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
         ],
       ),
       body:PageView(
+        physics:  const NeverScrollableScrollPhysics(),
           children:homeScreenItems,
           controller: pageController,
           onPageChanged: onPageChanged,
