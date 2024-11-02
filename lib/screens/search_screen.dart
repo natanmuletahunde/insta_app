@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           backgroundImage: NetworkImage(
                             (snapshot.data! as dynamic).docs[index]['photoUrl'],
                           ),
-                        ),
+                        ),  
                         title: Text(
                             (snapshot.data! as dynamic).docs[index]['username']),
                       ),

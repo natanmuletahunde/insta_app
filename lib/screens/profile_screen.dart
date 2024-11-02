@@ -19,6 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int followers = 0;
   int following = 0;
   bool isFollowing = false;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -27,27 +28,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   getData() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
-      var userSnap = await FirebaseFirestore.instance.collection('users').doc(widget.uid).get();
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
 
       // get post link
-       var postSnap = await FirebaseFirestore.instance.collection('posts').where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
-       postLen = postSnap.docs.length;
-       userData = userSnap.data()!;
-       followers = userSnap.data()!['followers'].length;
-       following = userSnap.data()!['following'].length;
-       isFollowing =  userSnap.data()!['followers'].contains(FirebaseAuth.instance.currentUser!.uid);
+      var postSnap = await FirebaseFirestore.instance
+          .collection('posts')
+          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      postLen = postSnap.docs.length;
+      userData = userSnap.data()!;
+      followers = userSnap.data()!['followers'].length;
+      following = userSnap.data()!['following'].length;
+      isFollowing = userSnap
+          .data()!['followers']
+          .contains(FirebaseAuth.instance.currentUser!.uid);
       setState(() {
         userData = userSnap.data()!;
       });
     } catch (e) {
       showSnackBar(context as String, e.toString() as BuildContext);
     }
+      setState((){
+     isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  isLoading? const Center(
+      child: CircularProgressIndicator()
+    ) : Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         title: Text(userData['username']), // Use userData here
@@ -61,11 +78,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Row(
                   children: [
-                     CircleAvatar(
+                    CircleAvatar(
                       backgroundColor: Colors.grey,
-                      backgroundImage: NetworkImage(
-                        userData['photoUrl']
-                      ),
+                      backgroundImage: NetworkImage(userData['photoUrl']),
                       radius: 80,
                     ),
                     Expanded(
@@ -84,27 +99,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                               FirebaseAuth.instance.currentUser!.uid == widget.uid?  FollowButton(
-                                text: 'Edit Profile',
-                                backgroundColor: mobileBackgroundColor,
-                                textColor: primaryColor,
-                                borderColor: Colors.grey,
-                                function: () {},
-                              ):isFollowing?
-                               FollowButton(
-                                text: 'UnFollow',
-                                backgroundColor: Colors.white,
-                                textColor: Colors.black,
-                                borderColor: Colors.grey,
-                                function: () {},
-                              ):
-                               FollowButton(
-                                text: 'Follow',
-                                backgroundColor: Colors.blue,
-                                textColor: Colors.white,
-                                borderColor: Colors.blue,
-                                function: () {},
-                              )
+                              FirebaseAuth.instance.currentUser!.uid ==
+                                      widget.uid
+                                  ? FollowButton(
+                                      text: 'Edit Profile',
+                                      backgroundColor: mobileBackgroundColor,
+                                      textColor: primaryColor,
+                                      borderColor: Colors.grey,
+                                      function: () {},
+                                    )
+                                  : isFollowing
+                                      ? FollowButton(
+                                          text: 'UnFollow',
+                                          backgroundColor: Colors.white,
+                                          textColor: Colors.black,
+                                          borderColor: Colors.grey,
+                                          function: () {},
+                                        )
+                                      : FollowButton(
+                                          text: 'Follow',
+                                          backgroundColor: Colors.blue,
+                                          textColor: Colors.white,
+                                          borderColor: Colors.blue,
+                                          function: () {},
+                                        )
                             ],
                           )
                         ],
