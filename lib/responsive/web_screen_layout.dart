@@ -1,8 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/utils/colors.dart';
-class WebScreenLayout extends StatelessWidget {
+class WebScreenLayout extends StatefulWidget {
+
   const WebScreenLayout({super.key});
 
+  @override
+  State<WebScreenLayout> createState() => _WebScreenLayoutState();
+}
+
+class _WebScreenLayoutState extends State<WebScreenLayout> {
+   int _page = 0;
+  late PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
+  void navigationTapped(int page) {
+    pageController.jumpToPage(page);
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold
