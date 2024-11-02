@@ -125,6 +125,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         .currentUser!.uid,
                                                     userData['uid'],
                                                   );
+                                                  setState(() {
+                                                    isFollowing = false;
+                                                    followers--;
+                                                  });
                                                 },
                                               )
                                             : FollowButton(
@@ -141,6 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       );
                                                 setState(() {
                                                     isFollowing = true;
+                                                    followers++;
                                                 });
                                                 },
                                               )
